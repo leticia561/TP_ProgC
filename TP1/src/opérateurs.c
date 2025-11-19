@@ -1,24 +1,58 @@
+cat > calculs.c << 'EOF'
 #include <stdio.h>
 
 int main() {
-    int a = 16;
-    int b = 3;
+    int num1 = 10; // tu peux changer ces valeurs pour tester
+    int num2 = 3;
+    char op = '+'; // change l'opérateur pour tester
 
-    // Affichage des valeurs initiales
-    printf("Valeurs initiales : a = %d, b = %d\n\n", a, b);
+    int resultat;
 
-    // Opérateurs arithmétiques
-    printf("=== Operateurs arithmetiques ===\n");
-    printf("a + b = %d\n", a + b);
-    printf("a - b = %d\n", a - b);
-    printf("a * b = %d\n", a * b);
-    printf("a / b = %d\n", a / b);  // Division entière
-    printf("a %% b = %d\n", a % b); // %% pour afficher %
+    switch(op) {
+        case '+':
+            resultat = num1 + num2;
+            break;
+        case '-':
+            resultat = num1 - num2;
+            break;
+        case '*':
+            resultat = num1 * num2;
+            break;
+        case '/':
+            if (num2 != 0)
+                resultat = num1 / num2;
+            else {
+                printf("Erreur : division par zero\n");
+                return 1;
+            }
+            break;
+        case '%':
+            if (num2 != 0)
+                resultat = num1 % num2;
+            else {
+                printf("Erreur : modulo par zero\n");
+                return 1;
+            }
+            break;
+        case '&':
+            resultat = num1 & num2;
+            break;
+        case '|':
+            resultat = num1 | num2;
+            break;
+        case '~':
+            resultat = ~num1; // uniquement num1
+            break;
+        default:
+            printf("Opérateur inconnu\n");
+            return 1;
+    }
 
-    // Opérateurs logiques / de comparaison
-    printf("\n=== Operateurs logiques / de comparaison ===\n");
-    printf("a == b : %d\n", a == b); // 1 si vrai, 0 si faux
-    printf("a > b  : %d\n", a > b);  // 1 si vrai, 0 si faux
-
+    printf("Résultat : %d\n", resultat);
     return 0;
 }
+EOF
+gcc -o calculs calculs.c
+./calculs
+
+
